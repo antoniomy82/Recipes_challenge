@@ -2,6 +2,8 @@ package com.antoniomy82.recipes_challenge.utils
 
 import android.content.Context
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -32,6 +34,12 @@ class RecipesUtils {
                 Log.e("frgmntReplaceFromLayout", e.toString())
             }
 
+        }
+
+
+        fun hideKeyboard(context: Context, view: View) {
+            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
 
     }

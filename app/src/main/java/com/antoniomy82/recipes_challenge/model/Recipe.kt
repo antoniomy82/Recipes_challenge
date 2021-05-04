@@ -4,5 +4,5 @@ data class Recipe(
     var tittle: String ?="",
     var href: String ?="",
     var ingredients: String ?="",
-    var thumbail: String ?=""
+    var thumbail: String ?="",
 )
