@@ -62,5 +62,26 @@ This challenge should be done by using the free to use RecipePuppy API. We would
 ***
 
 
+##  Comments and reasoning
 
+1. **Design and architectural pattern:**
 
+	- It has been designed in MVVM, since it is the Kotlin reference pattern and is the most recommended by Google.
+
+	- Below is how it has been applied in the project:
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/00_mvvm.png>
+
+2. **Offline mode:**
+	- It has been designed and implemented with Jetpack, specifically the DB with SQL Lite and the data mapping with Room, since it simplifies the work and allows the Recipe object to be shared between the database and the rest of the application.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/07_room.PNG>
+
+3. **Used libraries:**
+  	- Volley: For simplicity to construct the recipePuppy API call (For this case it greatly simplified the solution with respect to retrofit)
+ 	- Coroutines: To insert recipe objects into the background database
+ 	- Picasso: To load images from urls, It is very simple and for this case it works better than glide.
+  	- lifecycle-viewmodel-ktx & lifecycle-extensions:2.2.0: For DataBinding, ViewModel, LiveData ... (100% architecture MVVM)
+
+4. **Design approach:**
+  	- For simplicity, a design has been made for functionality (instead of use cases).
