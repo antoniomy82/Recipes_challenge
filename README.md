@@ -75,7 +75,7 @@ This challenge should be done by using the free to use RecipePuppy API. We would
 2. **Offline mode:**
 	- It has been designed and implemented with Jetpack, specifically the DB with SQL Lite and the data mapping with Room, since it simplifies the work and allows the Recipe object to be shared between the database and the rest of the application.
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/06_room.PNG>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/07_room.PNG>
 
 3. **Used libraries:**
   	- Volley: For simplicity to construct the recipePuppy API call (For this case it greatly simplified the solution with respect to retrofit)
