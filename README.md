@@ -48,7 +48,7 @@ This challenge should be done by using the free to use RecipePuppy API. We would
 ***
 **Step 2:** When data is received it will show all recipes in a recyclerView.
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/edit/master/screenshots/03_home.PNG>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/screenshots/03_home.PNG>
 
 ***
 **Step 3:** To save the recipe, click on the "make favorite" button.
