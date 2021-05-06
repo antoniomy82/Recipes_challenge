@@ -4,7 +4,7 @@
     android:padding="20dp"
     >
 
-    <solid android:color="@color/medium_grey" />
+    <solid android:color="@color/title_text" />
 
     <stroke
         android:width="2px"

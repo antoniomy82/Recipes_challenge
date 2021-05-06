@@ -3,7 +3,6 @@ package com.antoniomy82.recipes_challenge.model
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -17,50 +16,60 @@ import org.json.JSONException
 import org.json.JSONObject
 
 
+
 class RecipesRepository {
 
-    fun getRecipe(url: String, context: Context, retrieveMutable : MutableLiveData<List<Recipe>>) {
+    fun getRecipe(
+        url: String,
+        context: Context,
+        retrieveMutable: MutableLiveData<List<Recipe>>,
+        checkServerResponse: () -> Unit
+    ) {
 
         val volleyRequest: RequestQueue? = Volley.newRequestQueue(context)
         val recipeList = mutableListOf<Recipe>()
 
-            volleyRequest?.add(
-                JsonObjectRequest(
-                    Request.Method.GET, url, { response: JSONObject ->
-                        try {
+        volleyRequest?.add(
+            JsonObjectRequest(
+                Request.Method.GET, url, { response: JSONObject ->
+                    try {
 
-                            val resultArray = response.getJSONArray("results")
+                        val resultArray = response.getJSONArray("results")
 
-                            for (i in 0 until resultArray.length()) {
+                        for (i in 0 until resultArray.length()) {
 
-                                val recipeObj = resultArray.getJSONObject(i)
+                            val recipeObj = resultArray.getJSONObject(i)
 
-                                recipeList.add(
-                                    Recipe(
-                                        title = recipeObj.getString("title"),
-                                        href = recipeObj.getString("href"),
-                                        ingredients = recipeObj.getString("ingredients"),
-                                        thumbnail = recipeObj.getString("thumbnail")
-                                    )
+                            recipeList.add(
+                                Recipe(
+                                    title = recipeObj.getString("title"),
+                                    href = recipeObj.getString("href"),
+                                    ingredients = recipeObj.getString("ingredients"),
+                                    thumbnail = recipeObj.getString("thumbnail")
                                 )
-                            }
-                            retrieveMutable.value=recipeList
-
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
+                            )
                         }
+                        retrieveMutable.value = recipeList
 
-                    },
-                    { error: VolleyError? ->
-                        try {
-                            Log.d("Error:", error.toString())
+                    } catch (e: JSONException) {
+                        // e.printStackTrace()
+                        checkServerResponse()
+                        Log.e("Error:", e.toString())
+                    }
+                    checkServerResponse()
+                },
+                { error: VolleyError? ->
+                    try {
+                        checkServerResponse()
+                        Log.e("Error:", error.toString())
 
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
-                        }
-                    })
-            )
-        }
+                    } catch (e: JSONException) {
+                        checkServerResponse()
+                        Log.e("Error:", e.toString())
+                    }
+                })
+        )
+    }
 
 
     /**
@@ -70,9 +79,6 @@ class RecipesRepository {
 
     //DB instance
     private var recipeDataBase: RecipeDataBase? = null
-
-    //LiveData objects from recipeDB
-    private var recipeList: LiveData<Recipe>? = null
 
 
     private fun initializeDB(context: Context): RecipeDataBase? {
@@ -90,8 +96,7 @@ class RecipesRepository {
 
     }
 
-
-
+    @Suppress("unused")
     fun deleteRecipe(context: Context, title: String) {
         recipeDataBase = initializeDB(context)
 
@@ -106,7 +111,7 @@ class RecipesRepository {
 
     }
 
-    fun getAllRecipes(context: Context, mRecipeList : MutableLiveData<List<Recipe>>){
+    fun getAllRecipes(context: Context, mRecipeList: MutableLiveData<List<Recipe>>) {
         recipeDataBase = initializeDB(context)
 
         val mList = mutableListOf<Recipe>()

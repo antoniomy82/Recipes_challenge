@@ -28,6 +28,9 @@ class RecipesHomeFragment(
 
         fragmentRecipesHomeBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_recipes_home, container, false)
+
+        retainInstance = true //Save state
+
         return fragmentRecipesHomeBinding?.root
     }
 
@@ -52,7 +55,6 @@ class RecipesHomeFragment(
                 }
             }
         }
-
 
         //Load Close app when press back arrow
         recipesViewModel?.setHomeHeaderBarButtonsFragment()

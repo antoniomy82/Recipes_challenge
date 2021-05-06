@@ -42,8 +42,8 @@ class RecipesListAdapter(
         holder.adapterRecipesListBinding.mRecipe = recipeList[position]
 
         //Set image
-        if (recipeList[position].thumbnail != null) {
-            Picasso.get().load(recipeList[position].thumbnail.toString())
+        if (recipeList[position].thumbnail?.isNotEmpty() == true) {
+            Picasso.get().load(recipeList[position].thumbnail)
                 .placeholder(R.mipmap.no_image)
                 .into(holder.adapterRecipesListBinding.imageRecipe)
         }
@@ -84,7 +84,7 @@ class RecipesListAdapter(
         holder.adapterRecipesListBinding.btnMakeFavorite.setOnClickListener {
 
             holder.adapterRecipesListBinding.btnMakeFavorite.visibility = View.GONE
-            recipesVM.makeFavoriteButton(recipeList[position], holder.adapterRecipesListBinding)
+            recipesVM.makeFavoriteButton(recipeList[position])
         }
 
         if (recipesVM.isFavourite) holder.adapterRecipesListBinding.btnMakeFavorite.visibility =

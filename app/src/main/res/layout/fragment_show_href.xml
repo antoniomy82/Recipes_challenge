@@ -28,6 +28,20 @@
 
         </LinearLayout>
 
+        <android.widget.ProgressBar
+            android:id="@+id/progressBarWebView"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/orange"
+            android:layout_marginTop="120dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone" />
+
         <WebView
             android:id="@+id/webViewId"
             android:padding="2dp"

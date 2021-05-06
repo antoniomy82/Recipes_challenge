@@ -12,9 +12,10 @@ import com.antoniomy82.recipes_challenge.databinding.FragmentShowHrefBinding
 import com.antoniomy82.recipes_challenge.viewmodel.RecipesViewModel
 
 
+
 class ShowHrefFragment(private val href:String, val recipesVM:RecipesViewModel) : Fragment() {
 
-    var fragmentShowHrefBinding:FragmentShowHrefBinding ?=null
+    private var fragmentShowHrefBinding:FragmentShowHrefBinding ?=null
     var recipesViewModel: RecipesViewModel? = null
 
     override fun onCreateView(
@@ -23,8 +24,12 @@ class ShowHrefFragment(private val href:String, val recipesVM:RecipesViewModel) 
     ): View? {
 
         fragmentShowHrefBinding= DataBindingUtil.inflate(inflater, R.layout.fragment_show_href, container, false)
+        retainInstance = true //Save state
         return fragmentShowHrefBinding?.root
     }
+
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,11 +38,12 @@ class ShowHrefFragment(private val href:String, val recipesVM:RecipesViewModel) 
         recipesViewModel = recipesVM
         fragmentShowHrefBinding?.recipesVM = recipesViewModel
 
-        //Load url
-        fragmentShowHrefBinding?.webViewId?.loadUrl(href)
+        //load url in webView
+        fragmentShowHrefBinding?.let { recipesViewModel?.loadUrlInWebView(href, it) }
 
         //Back home recyclerView when press back arrow
         recipesViewModel?.backShowURL(view, context)
-    }
 
+
+    }
 }

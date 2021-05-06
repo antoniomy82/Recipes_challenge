@@ -3,7 +3,9 @@
 
     <string name="title_bar">RECIPES</string>
     <string name="btnSearch">Search</string>
-    <string name="has_lactose">&#160;&#160;&#160;&#160;&#160;&#160; Has lactose &#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="has_lactose">&#160;&#160; Has lactose &#160;&#160;</string>
     <string name="btnMakeFavorite">Make favorite</string>
     <string name="instructions">&#160;&#160;Enter one or more ingredients, and press search. &#160;&#160;Example: onions, potatoes</string>
+    <string name="offline_message">&#160;No internet connection, working in offline mode</string>
+    <string name="server_error_message">Recipepuppy server error</string>
 </resources>

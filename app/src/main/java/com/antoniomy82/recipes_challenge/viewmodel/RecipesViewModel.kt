@@ -2,8 +2,11 @@ package com.antoniomy82.recipes_challenge.viewmodel
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
@@ -11,8 +14,8 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.antoniomy82.recipes_challenge.R
-import com.antoniomy82.recipes_challenge.databinding.AdapterRecipesListBinding
 import com.antoniomy82.recipes_challenge.databinding.FragmentRecipesHomeBinding
+import com.antoniomy82.recipes_challenge.databinding.FragmentShowHrefBinding
 import com.antoniomy82.recipes_challenge.model.Recipe
 import com.antoniomy82.recipes_challenge.model.RecipesRepository
 import com.antoniomy82.recipes_challenge.ui.RecipesHomeFragment
@@ -37,11 +40,11 @@ class RecipesViewModel : ViewModel() {
     val retrieveRecipes = MutableLiveData<List<Recipe>>()
     private var lastRecipesList: List<Recipe>? = null
     private var lastSearch: String = ""
-    var isFavourite:Boolean =false
-    private var recyclerView: WeakReference<RecyclerView> ?=null
+    var isFavourite: Boolean = false
+    private var recyclerView: WeakReference<RecyclerView>? = null
 
 
-    //Query values
+    //Query url
     private val urlBody: String = "http://www.recipepuppy.com/api/?i="
 
     //Set Main fragment parameters in this VM
@@ -68,25 +71,34 @@ class RecipesViewModel : ViewModel() {
             exitProcess(0)
         }
 
-        frgMainView?.get()?.findViewById<View>(R.id.headerBack)?.visibility=View.GONE
+        frgMainView?.get()?.findViewById<View>(R.id.headerBack)?.visibility = View.GONE
 
         //Favorite button
         frgMainView?.get()?.findViewById<View>(R.id.favorite_icon)?.setOnClickListener {
-            fragmentRecipesHomeBinding?.recipesTitleLayout?.visibility=View.GONE
-            frgMainView?.get()?.findViewById<View>(R.id.favorite_icon)?.visibility=View.GONE
+            fragmentRecipesHomeBinding?.recipesTitleLayout?.visibility = View.GONE
+            frgMainView?.get()?.findViewById<View>(R.id.favorite_icon)?.visibility = View.GONE
             frgMainView?.get()?.findViewById<View>(R.id.search_icon)?.visibility = View.VISIBLE
             frgMainContext?.get()?.let { it1 -> mRepository.getAllRecipes(it1, retrieveRecipes) }
-            isFavourite=true
+            fragmentRecipesHomeBinding?.instructions?.visibility = View.GONE
+            frgMainContext?.get()?.let { it1 ->
+                frgMainView?.get()?.let { it2 ->
+                    RecipesUtils.hideKeyboard(
+                        it1,
+                        it2
+                    )
+                }
+            }
+            isFavourite = true
         }
 
         //Search button
         frgMainView?.get()?.findViewById<View>(R.id.search_icon)?.setOnClickListener {
-            fragmentRecipesHomeBinding?.recipesTitleLayout?.visibility=View.VISIBLE
-            frgMainView?.get()?.findViewById<View>(R.id.favorite_icon)?.visibility=View.VISIBLE
+            fragmentRecipesHomeBinding?.recipesTitleLayout?.visibility = View.VISIBLE
+            frgMainView?.get()?.findViewById<View>(R.id.favorite_icon)?.visibility = View.VISIBLE
             frgMainView?.get()?.findViewById<View>(R.id.search_icon)?.visibility = View.GONE
-            isFavourite=false
-
+            isFavourite = false
         }
+        checkServerResponse()
     }
 
 
@@ -98,9 +110,10 @@ class RecipesViewModel : ViewModel() {
                     lastRecipesList,
                     lastSearch
                 ), (context as AppCompatActivity).supportFragmentManager
-            )else{
+            ) else {
                 RecipesUtils.replaceFragment(
-                    RecipesHomeFragment(), (context as AppCompatActivity).supportFragmentManager)
+                    RecipesHomeFragment(), (context as AppCompatActivity).supportFragmentManager
+                )
             }
         }
     }
@@ -110,7 +123,7 @@ class RecipesViewModel : ViewModel() {
 
         lastSearch = fragmentRecipesHomeBinding?.etSearch?.text.toString()
         val tempUrl = urlBody + fragmentRecipesHomeBinding?.etSearch?.text.toString()
-        fragmentRecipesHomeBinding?.instructions?.visibility=View.GONE
+        fragmentRecipesHomeBinding?.instructions?.visibility = View.GONE
 
         //Hide keyboard
         frgMainContext?.get()?.let {
@@ -122,7 +135,15 @@ class RecipesViewModel : ViewModel() {
             }
         }
 
-        mRepository.getRecipe(tempUrl, frgMainContext?.get()!!, retrieveRecipes)
+        //Show progress bar
+        fragmentRecipesHomeBinding?.progressBar?.visibility = View.VISIBLE
+
+        //Call to getRecipe repository to retrieve data
+        frgMainContext?.get()?.let {
+            mRepository.getRecipe(
+                tempUrl, it, retrieveRecipes
+            ) { checkServerResponse() }
+        }
     }
 
 
@@ -131,8 +152,10 @@ class RecipesViewModel : ViewModel() {
 
         lastRecipesList = mRecipes
 
-        recyclerView = WeakReference(frgMainView?.get()?.findViewById(R.id.rvRecipes) as RecyclerView)
-        val manager: RecyclerView.LayoutManager = LinearLayoutManager(frgMainActivity?.get()) //Orientation
+        recyclerView =
+            WeakReference(frgMainView?.get()?.findViewById(R.id.rvRecipes) as RecyclerView)
+        val manager: RecyclerView.LayoutManager =
+            LinearLayoutManager(frgMainActivity?.get()) //Orientation
         recyclerView?.get()?.layoutManager = manager
         mRecipes.sortedBy { it.title }
         recyclerView?.get()?.adapter = frgMainContext?.get()?.let {
@@ -146,12 +169,58 @@ class RecipesViewModel : ViewModel() {
 
     }
 
-    fun makeFavoriteButton(mRecipe: Recipe, adapterRecipesListBinding: AdapterRecipesListBinding) {
+    fun makeFavoriteButton(mRecipe: Recipe) {
 
-        Toast.makeText(frgMainContext?.get(), "Recipe saved in favorite list", Toast.LENGTH_LONG).show()
+        Toast.makeText(frgMainContext?.get(), "Recipe saved in favorite list", Toast.LENGTH_LONG)
+            .show()
 
         frgMainContext?.get()?.let { mRepository.insertRecipe(it, mRecipe) }
 
+    }
+
+    private fun checkServerResponse() {
+        fragmentRecipesHomeBinding?.progressBar?.visibility = View.GONE
+
+        if (frgMainContext?.get()?.let { RecipesUtils.isOnline(it) } == false) {
+            frgMainView?.get()?.findViewById<View>(R.id.connected_icon)?.visibility = View.GONE
+            frgMainView?.get()?.findViewById<View>(R.id.offline_icon)?.visibility = View.VISIBLE
+
+            fragmentRecipesHomeBinding?.instructions?.visibility = View.VISIBLE
+            fragmentRecipesHomeBinding?.instructions?.text =
+                frgMainContext?.get()?.getString(R.string.offline_message)
+        } else {
+            //Close progress bar & instructions
+            fragmentRecipesHomeBinding?.progressBar?.visibility = View.GONE
+
+            //Show instructions
+            if (lastRecipesList == null) fragmentRecipesHomeBinding?.instructions?.visibility =
+                View.VISIBLE
+
+            //Set connection icons
+            frgMainView?.get()?.findViewById<View>(R.id.connected_icon)?.visibility = View.VISIBLE
+            frgMainView?.get()?.findViewById<View>(R.id.offline_icon)?.visibility = View.GONE
+        }
+    }
+
+    //Load url with progress bar in showHrefFragment into its webView
+    fun loadUrlInWebView(href: String, fragmentShowHrefBinding: FragmentShowHrefBinding) {
+
+        //Load url
+        fragmentShowHrefBinding.webViewId.webViewClient = WebViewClient()
+        fragmentShowHrefBinding.webViewId.loadUrl(href)
+
+        //Progress bar
+        fragmentShowHrefBinding.webViewId.webViewClient = object : WebViewClient() {
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                fragmentShowHrefBinding.progressBarWebView.visibility = View.VISIBLE
+                super.onPageStarted(view, url, favicon)
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                fragmentShowHrefBinding.progressBarWebView.visibility = View.GONE
+                super.onPageFinished(view, url)
+            }
+        }
     }
 
 }

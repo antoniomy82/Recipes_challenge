@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="recipesVM"
             type="com.antoniomy82.recipes_challenge.viewmodel.RecipesViewModel" />
@@ -68,9 +67,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="2dp"
-            android:layout_marginStart="2dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/instructions_bg_rounded"
             android:fontFamily="sans-serif"
@@ -78,8 +77,23 @@
             android:maxLines="3"
             android:text="@string/instructions"
             android:textColor="@color/normal_text_color"
-            android:textSize="18sp"
-            android:textStyle="normal" />
+            android:textSize="16sp"
+            android:textStyle="normal"
+            android:visibility="gone"/>
+
+        <android.widget.ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/orange"
+            android:layout_marginTop="120dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecipes"
