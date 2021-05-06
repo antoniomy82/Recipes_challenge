@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="recipesVM"
             type="com.antoniomy82.recipes_challenge.viewmodel.RecipesViewModel" />
@@ -32,33 +33,53 @@
             android:id="@+id/recipes_title_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/soft_blue"
-            android:orientation="horizontal" >
+            android:background="@color/medium_grey"
+            android:orientation="horizontal">
 
             <android.widget.EditText
                 android:id="@+id/etSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.1"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/white"
+                android:layout_weight="0.1"
                 android:autofillHints=""
-                android:inputType="text" />
+                android:background="@drawable/edit_bg_rounded"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
 
             <android.widget.Button
                 android:id="@+id/btnSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.3"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="@string/btnSearch"
-                android:onClick="@{()->recipesVM.searchRecipesButton()}"/>
+                android:layout_weight="0.3"
+                android:onClick="@{()->recipesVM.searchRecipesButton()}"
+                android:text="@string/btnSearch" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/instructions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/instructions_bg_rounded"
+            android:fontFamily="sans-serif"
+            android:letterSpacing="0.02"
+            android:maxLines="3"
+            android:text="@string/instructions"
+            android:textColor="@color/normal_text_color"
+            android:textSize="18sp"
+            android:textStyle="normal" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecipes"
@@ -67,7 +88,7 @@
             android:layout_weight="0.9"
             android:animateLayoutChanges="false"
             android:animationCache="false"
-            android:background="@android:color/white" />
+            android:background="@color/medium_grey" />
 
     </LinearLayout>
 </layout>

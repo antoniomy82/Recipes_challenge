@@ -2,20 +2,23 @@ package com.antoniomy82.recipes_challenge.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.antoniomy82.recipes_challenge.R
 import com.antoniomy82.recipes_challenge.databinding.FragmentRecipesHomeBinding
-import com.antoniomy82.recipes_challenge.model.RecipesRepository
+import com.antoniomy82.recipes_challenge.model.Recipe
 import com.antoniomy82.recipes_challenge.viewmodel.RecipesViewModel
 
-class RecipesHomeFragment : Fragment() {
+class RecipesHomeFragment(
+    private val retrieveRecipes: List<Recipe>? = null,
+    private val lastSearch: String? = null
+) : Fragment() {
 
-    var fragmentRecipesHomeBinding: FragmentRecipesHomeBinding? = null
+    private var fragmentRecipesHomeBinding: FragmentRecipesHomeBinding? = null
     var recipesViewModel: RecipesViewModel? = null
 
     override fun onCreateView(
@@ -35,6 +38,7 @@ class RecipesHomeFragment : Fragment() {
         fragmentRecipesHomeBinding?.recipesVM = recipesViewModel
 
 
+        //Set fragment values in its view model
         activity?.let {
             context?.let { it1 ->
                 fragmentRecipesHomeBinding?.let { it2 ->
@@ -50,12 +54,20 @@ class RecipesHomeFragment : Fragment() {
         }
 
 
+        //Load Close app when press back arrow
+        recipesViewModel?.setHomeHeaderBarButtonsFragment()
 
-        recipesViewModel?.retrieveRecipes?.observe(viewLifecycleOwner){retrieveList ->
-            Log.d("retrieve",retrieveList.toString())
-            recipesViewModel?.setRecipesRecyclerViewAdapter(retrieveList)
+        //When pressed back arrow return to the last search (from ShowHrefFragment)
+        if (retrieveRecipes != null) {
+            recipesViewModel?.setRecipesRecyclerViewAdapter(retrieveRecipes)
+            fragmentRecipesHomeBinding?.etSearch?.setText(lastSearch)
         }
 
+        //Observer get retrieve recipes list, and load recycler view
+        recipesViewModel?.retrieveRecipes?.observe(viewLifecycleOwner) { retrieveList ->
+            Log.d("retrieve", retrieveList.toString())
+            recipesViewModel?.setRecipesRecyclerViewAdapter(retrieveList)
+        }
 
     }
 

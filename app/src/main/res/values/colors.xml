@@ -6,6 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="red">#FF0000</color>
 
 
     <!--Recipes color palette-->
@@ -29,9 +30,11 @@
     <color name="medium_blue">#739dbe</color>
 
     <!--Grey big sur-->
-    <color name="soft_light_grey">#dce6ee</color>
-    <color name="medium_light_grey">#b9cede</color>
-    <color name="soft_grey">#96b5ce</color>
-    <color name="medium_grey">#739dbe</color>
+    <color name="soft_light_grey">#c7c7c7</color>
+    <color name="medium_light_grey">#c5c7c9</color>
+    <color name="soft_grey">#c0c8ce</color>
+    <color name="medium_grey">#bcc8d2</color>
+    <color name="background_blue">#b2cadc</color>
+    <color name="back_recycler">#96b5ce</color>
 
 </resources>
