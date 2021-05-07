@@ -95,4 +95,10 @@ This challenge should be done by using the free to use RecipePuppy API. We would
 
 ##Video
 - In this video I explain how it works, as well as its implementation
+
+To download:
 https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/Recipes%20challenge.mp4
+
+To view with a google account:
+https://drive.google.com/file/d/1VjpKoA_MINTxmCmbfpetytMc5ADA9VWw/view?usp=sharing
+
