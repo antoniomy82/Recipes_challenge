@@ -41,24 +41,31 @@ This challenge should be done by using the free to use RecipePuppy API. We would
 
 **Step 1:** Enter one or more ingredients to search recipes, and press search button
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/01_home.PNG>
-&nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/02_home.PNG>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/01_home.PNG>
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/02_home.PNG>
 
 ***
 **Step 2 :** When data is received it will show all recipes in a recyclerView. &nbsp;
 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/03_home.PNG>
+
+***
+
 **Step 3 :** To save the recipe, click on the "make favorite" button.
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/03_home.PNG>
-&nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/04_home.PNG>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/04_home.PNG>
 
 ***
 **Step 4:** To see saved recipes, click on the favorites icon. &nbsp;
 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/05_saved_recipes.PNG>
+***
+
 **Step 5:** To see href link, click on the item (saved or retrieved).
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/05_saved_recipes.PNG>
-&nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/06_href_to_web.PNG>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src=https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/06_href_to_web.PNG>
+
 ***
 
 
