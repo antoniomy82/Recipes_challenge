@@ -45,6 +45,7 @@ class RecipesListAdapter(
         if (recipeList[position].thumbnail?.isNotEmpty() == true) {
             Picasso.get().load(recipeList[position].thumbnail)
                 .placeholder(R.mipmap.no_image)
+                .resize(426, 320)
                 .into(holder.adapterRecipesListBinding.imageRecipe)
         }
 

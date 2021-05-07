@@ -1,10 +1,10 @@
 package com.antoniomy82.recipes_challenge.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -67,8 +67,10 @@ class RecipesHomeFragment(
 
         //Observer get retrieve recipes list, and load recycler view
         recipesViewModel?.retrieveRecipes?.observe(viewLifecycleOwner) { retrieveList ->
-            Log.d("retrieve", retrieveList.toString())
-            recipesViewModel?.setRecipesRecyclerViewAdapter(retrieveList)
+            if(retrieveList.isNotEmpty()) recipesViewModel?.setRecipesRecyclerViewAdapter(retrieveList)
+            else {
+                Toast.makeText(context, "No result for this ingredient/s", Toast.LENGTH_LONG).show()
+            }
         }
 
     }

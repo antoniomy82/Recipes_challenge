@@ -30,8 +30,8 @@
 
             <ImageView
                 android:id="@+id/image_recipe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="426dp"
+                android:layout_height="320dp"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:layout_marginStart="5dp"
@@ -49,8 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginStart="248dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginStart="220dp"
+                android:layout_marginTop="72dp"
                 android:background="@drawable/lactose_bg_rounded"
                 android:gravity="center_horizontal"
                 android:rotation="45"
@@ -58,7 +58,7 @@
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                 android:visibility="gone"/>
 
         </RelativeLayout>
 
