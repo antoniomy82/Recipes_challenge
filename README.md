@@ -92,3 +92,7 @@ This challenge should be done by using the free to use RecipePuppy API. We would
 
 4. **Design approach:**
   	- For simplicity, a design has been made for functionality (instead of use cases).
+
+##Video
+- In this video I explain how it works, as well as its implementation
+https://github.com/antoniomy82/Recipes_challenge/blob/master/screenshots/Recipes%20challenge.mp4
